@@ -1,0 +1,195 @@
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">
+    Analysis History Of {{user.split("@")[0]}} &#128187;
+</h2>
+
+{% if reports and reports|length > 0 %}
+
+    {% for report in reports %}
+
+    <div class="history-card">
+
+        <div class="history-header">
+
+            <div>
+
+                <h2>
+                    Resume Analysis 
+                    <h3>{{ report.result.target_role or "Genaral Analysis" }} &#127919;</h3>
+                </h2>
+
+                {% if report.result.get("resume_score") %}
+
+                <div class="score-badge">
+
+                    {{ report.result.resume_score }}/100
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="resume-preview">
+
+            <h3>Resume Preview</h3>
+
+            <p>
+                {{ report.resume[:250] }}...
+            </p>
+
+        </div>
+
+        {% if report.result.get("summary") %}
+
+        <div class="section-card">
+
+            <h3>AI Summary</h3>
+
+            <p>
+                {{ report.result.summary }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        <div class="section-card">
+
+            <h3>Skills</h3>
+
+            <div class="tags-container">
+
+                {% if report.result.get("skills") %}
+
+                    {% for s in report.result.get("skills", []) %}
+
+                    <span class="skill-tag">
+                        {{ s }}
+                    </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>No skills detected.</p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="section-card">
+
+            <h3>Missing Skills</h3>
+
+            <div class="tags-container">
+
+                {% if report.result.get("missing_skills") %}
+
+                    {% for s in report.result.get("missing_skills", []) %}
+
+                    <span class="missing-tag">
+                        {{ s }}
+                    </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>No missing skills found.</p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="section-card">
+
+            <h3>Learning Roadmap</h3>
+
+            {% if report.result.get("roadmap") %}
+
+            <ol class="roadmap-list">
+
+                {% for s in report.result.get("roadmap", []) %}
+
+                <li>
+                    {{ s }}
+                </li>
+
+                {% endfor %}
+
+            </ol>
+
+            {% else %}
+
+            <p>No roadmap available.</p>
+
+            {% endif %}
+
+        </div>
+
+        <div class="section-card">
+
+            <h3>Interview Questions</h3>
+
+            {% if report.result.get("interview_questions") %}
+
+            <ul class="question-list">
+
+                {% for s in report.result.get("interview_questions", []) %}
+
+                <li>
+                    {{ s }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+            {% else %}
+
+            <p>No interview questions available.</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="card empty-history">
+
+        <h3>
+            No Analysis Found
+        </h3>
+
+        <p>
+            You have not analyzed any resumes yet.
+        </p>
+
+        <a href="/dashboard" class="primary-link">
+
+            Analyze Resume
+
+        </a>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Welcome, {{user.split("@")[0]}} &#128525;</h2>
+
+<div class="card">
+    <h3>Resume Analyzer</h3>
+
+    <form method="POST" enctype="multipart/form-data" id="analyze-form">
+        <textarea name="resume" placeholder="Paste your resume here(Optional)"></textarea>
+        <p>OR Upload file:</p>
+        <input type="file" name="file">
+        <input type="text" name="role" placeholder="What do you want to become? (e.g. Backend Engineer)" required>
+        <button type="submit" id="analyze-btn">Analyze</button>
+        <div id="loading" class="loading-hidden">
+
+            <div class="spinner"></div>
+
+            <p>
+                Analyzing resume...
+            </p>
+
+        </div>
+    </form>
+</div>
+
+{% if result %}
+<div class="red">
+    {% if result.error %}
+    <p style="color: red;">Error: {{result.error}}</p>
+    
+    {% else %}
+    
+    {% if result.get("summary") %}
+        <div class="summary-box">
+
+            <h3>Summary</h3>
+
+            <p>{{ result.summary }}</p>
+
+        </div>
+
+    {% endif %}
+    
+    {% if result.get("resume_score") %}
+
+      <div class="score-box">
+
+          <h3>Resume Score</h3>
+
+          <div class="score-circle">
+              {{ result.resume_score }}/100
+          </div>
+
+      </div>
+
+    {% endif %}
+    
+    <h3>Skills</h3>
+    <ul>
+        {% for s in result.get("skills", []) %}
+        <li>{{s}}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Missing Skills</h3>
+    <ul>
+        {% for s in result.get("missing_skills", []) %}
+        <li>{{s}}</li>
+        {% endfor %}
+    </ul>
+    
+    <h3>Roadmap</h3>
+    <ul>
+        {% for skill in result.get("roadmap", []) %}
+        <li>{{skill}}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Interview Questions</h3>
+    <ul>
+        {% for skill in result.get("interview_questions", []) %}
+        <li>{{skill}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endif %}
+
+<script>
+
+const form = document.getElementById("analyze-form");
+
+const loading = document.getElementById("loading");
+
+const button = document.getElementById("analyze-btn");
+
+form.addEventListener("submit", function() {
+
+    loading.classList.remove("loading-hidden");
+
+    button.disabled = true;
+
+    button.innerText = "Analyzing...";
+
+});
+
+</script>
+
+{% endblock content %}
