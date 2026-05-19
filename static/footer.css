@@ -1,0 +1,76 @@
+/* Footer Wrapper */
+.app-footer {
+    background-color: #1a1a2e;
+    color: #b0b0cc;
+    padding: 40px 20px 20px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-top: 50px; /* Pushes footer away from main content */
+}
+
+/* Flexbox Container for Columns */
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* Individual Columns */
+.footer-column {
+    flex: 1;
+    min-width: 250px; /* Forces stack on narrow layouts */
+}
+
+.footer-column h3 {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.footer-column p {
+    line-height: 1.6;
+    margin: 0;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+}
+
+/* Social Links Layout */
+.social-links {
+    margin-top: 12px;
+}
+
+.social-links a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.social-links a:hover {
+    color: #4da3ff;
+}
+
+/* Copyright Row */
+.footer-bottom {
+    max-width: 1100px;
+    margin: 30px auto 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid #2e2e4f;
+    text-align: center;
+    font-size: 12px;
+}

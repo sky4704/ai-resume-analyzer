@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Resume Analyzer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
 </head>
 <body>
     <header>
@@ -43,8 +44,48 @@
         
         {% block content %} {% endblock %}
     </main>
-    <footer>
-        <p>@2026 AI Resume Analyzer</p>
+    <footer class="app-footer">
+        <div class="footer-container">
+            <!-- Column 1: App Info -->
+            <div class="footer-column">
+                <h3>AI Resume Analyzer</h3>
+                <p>An intelligent tool designed to parse, analyze, and optimize your resume using google genai to help you land your dream role.</p>
+            </div>
+
+            {% if session.get("user") %}
+            <!-- Column 2: Tech Stack Info -->
+            <div class="footer-column">
+                <h3>Powered By</h3>
+                <ul>
+                    <li>Python & Flask</li>
+                    <li>Google GEN AI</li>
+                    <li>SQLAlchemy (TiDB)</li>
+                    <li>Bcrypt Security</li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Author Info -->
+            <div class="footer-column">
+                <h3>About the Author</h3>
+                <p>Built with 💻 by <strong>SKY</strong></p>
+                <div class="social-links">
+                    <a href="https://github.com/sky4704" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://linkedin.com/in/sunil-kumar-969990b4" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                </div>
+            </div>
+
+            <!-- Column 4: Incoming Feature -->
+            <div class="footer-column">
+                <h3>Incoming Feature</h3>
+                <p>🤖 <strong>AI Resume Builder:</strong> Generate tailored, recruiter-ready resumes directly from your profile dashboard in seconds.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Bottom Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 AI Resume Analyzer. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
