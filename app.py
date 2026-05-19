@@ -320,12 +320,15 @@ def reset_password(token):
             reset_token=token
         ).first()
 
+
         if not user:
 
             flash("Invalid or expired token", "error")
 
             return redirect("/login")
 
+        user_email = user.email
+        
         if request.method == "POST":
 
             password = request.form.get(
@@ -353,7 +356,8 @@ def reset_password(token):
             return redirect("/login")
 
         return render_template(
-            "reset_password.html"
+            "reset_password.html",
+            user_email=user_email
         )
 
     finally:
