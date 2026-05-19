@@ -33,7 +33,6 @@ def allowed_file(filename):
 @app.route("/")
 def home():
     if "user" in session:
-        print(dict(session),"\nAlready logged in")
         return redirect("/dashboard")
 
     return redirect("/login")
@@ -66,7 +65,6 @@ def signup():
 
             return redirect("/login")
         finally:
-            print("Closing db connection signup")
             db.close()
 
     return render_template("signup.html")
@@ -103,7 +101,6 @@ def login():
 
                         user.password = hashed_password
                         db.commit()
-                        print(f"Successfully upgraded password for {email}")
 
                     else:
                         valid_password = False
@@ -117,7 +114,6 @@ def login():
                 flash("Invalid user credentials!", "error")
             
         finally:
-            print("Closing db connection login")
             db.close()
 
     return render_template("login.html")
@@ -191,7 +187,6 @@ def dashboard():
                 db.commit()
 
             finally:
-                print("Closing db connection dashboard")
                 db.close()
 
         except Exception as e:
@@ -249,7 +244,6 @@ def history():
         )
 
     finally:
-        print("Closing db connection history")
         db.close()
 
 
@@ -263,15 +257,6 @@ def handle_large_files(error):
     flash("The file you uploaded exceeds the 2MB limit.Please try a smaller file with .pdf or .docx extension", "error")
     return redirect("/dashboard")
 
-@app.route("/test-ai")
-def test_ai():
-
-    result = gemini_ai.resume_analyzer(
-        "Python Flask SQL developer",
-        "Backend Engineer"
-    )
-
-    return result
 
 @app.route("/forgot-password", methods=["GET", "POST"])
 def forgot_password():
@@ -383,4 +368,4 @@ def internal_server_error(error):
     ), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
