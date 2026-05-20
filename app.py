@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, session, redirect, flash, url_for
+from flask import Flask, render_template, request, session, redirect, flash, url_for, send_file, after_this_request
 from db import Base, engine, SessionLocal
 from werkzeug.utils import secure_filename
+from utils.resume_builder import (create_resume_doc, enhance_resume_content)
 import models
 import gemini_ai
 import PyPDF2
@@ -246,6 +247,242 @@ def history():
     finally:
         db.close()
 
+
+# Resume builder logic starts here
+
+@app.route("/resume-builder",methods=["GET", "POST"])
+def resume_builder():
+
+    if "user" not in session:
+
+        return redirect("/login")
+
+    if request.method == "POST":
+
+        required_fields = [
+            "name",
+            "email",
+            "phone",
+            "target_role"
+        ]
+
+        try:
+            phone = request.form.get(
+                "phone",
+                ""
+            ).strip()
+
+            if not phone.isdigit():
+
+                return render_template(
+                    "resume_builder.html",
+                    error="Phone number must contain digits only"
+                )
+
+            for field in required_fields:
+
+                if not request.form.get(field):
+
+                    return render_template(
+                        "resume_builder.html",
+                        error=f"{field} is required"
+                    )
+                
+            name = (
+                request.form.get("name", "")
+                .strip()
+                .title()
+            )
+
+            summary = request.form.get("summary","").strip()
+
+            if len(summary) > 1000:
+
+                summary = summary[:1000]
+
+            experience = [
+                        e.strip()
+
+                        for e in request.form.get(
+                            "experience"
+                        )
+
+                        if e.strip()
+                    ]
+            
+            if len(experience) > 10:
+
+                experience = experience[:10]
+            
+            projects = [
+                        p.strip()
+
+                        for p in request.form.getlist(
+                            "projects"
+                        )
+
+                        if p.strip()
+                    ]
+            
+            if len(projects) > 10:
+
+                projects = projects[:10]
+
+            data = {
+
+                "name":name,
+
+                "address":
+                    request.form.get("address"),
+
+                "email":
+                    request.form.get("email"),
+
+                "phone":
+                    request.form.get("phone"),
+
+                "linkedin":
+                    request.form.get("linkedin"),
+
+                "github":
+                    request.form.get("github"),
+
+                "target_role":
+                    request.form.get(
+                        "target_role"
+                    ),
+
+                "skills":
+                    [
+                        s.strip()
+
+                        for s in request.form.get(
+                            "skills"
+                        ).split(",")
+                        
+                        if s.strip()
+                    ],
+
+                "summary":summary,
+
+                "experience":experience,
+
+                "projects":projects,
+
+                "certifications":
+                    [
+                        c.strip()
+
+                        for c in request.form.get(
+                            "certifications"
+                        ).split(",")
+
+                        if c.strip()
+                    ],
+
+                "education":
+                    request.form.get(
+                        "education", ""
+                    ).strip(),
+                "declaration":
+                    request.form.get(
+                        "declaration"
+                    ),
+            }
+
+            include_declaration = (
+                    request.form.get(
+                        "include_declaration"
+                    )
+                    == "on"
+                )
+            
+            if include_declaration:
+
+                data["declaration"] = (
+                    "I hereby declare that the "
+                    "above information is true "
+                    "to the best of my knowledge."
+                )
+
+            print(data, 'sssssssssssssssssss')
+
+            # AI enhancement
+
+            enhanced = enhance_resume_content(
+                data
+            )
+
+            data["summary"] = enhanced.get(
+                "summary",
+                data["summary"]
+            )
+
+            data["experience"] = enhanced.get(
+                "experience",
+                data["experience"]
+            )
+
+            data["projects"] = enhanced.get(
+                "projects",
+                data["projects"]
+            )
+            if not isinstance(
+                enhanced.get("projects", []),
+                list
+            ):
+                enhanced["projects"] = []
+
+            if not isinstance(
+                enhanced.get("experience", []),
+                list
+            ):
+                enhanced["experience"] = []
+
+
+            # Generate DOCX
+
+            filepath = create_resume_doc(
+                data
+            )
+
+            @after_this_request
+            def remove_file(response):
+
+                try:
+
+                    os.remove(filepath)
+
+                except Exception as e:
+
+                    print(
+                        "FILE DELETE ERROR:",
+                        e
+                    )
+
+                return response
+
+            return send_file(
+                    filepath,
+                    as_attachment=True,
+                    download_name=f"{name.replace(" ", "_").lower()}.docx",
+                    max_age=0
+                )
+
+        except Exception as e:
+
+            print("RESUME BUILDER ERROR:", e)
+
+            return render_template(
+                "resume_builder.html",
+                error="Failed to generate resume"
+            )
+
+    return render_template(
+        "resume_builder.html"
+    )
+
+# Resume builder ends here
 
 @app.route("/logout")
 def logout():

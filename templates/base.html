@@ -6,6 +6,7 @@
     <title>AI Resume Analyzer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resume_builder.css') }}">
 </head>
 <body>
     <header>
@@ -19,6 +20,7 @@
                     <a href="/history">History</a>
                     <a href="/dashboard">Dashboard</a>
                     <a href="/logout">Logout</a>
+                    <a href="/resume-builder">🤖</a>
                 </div>
                 {% endif %}
             </nav>
@@ -76,8 +78,8 @@
 
             <!-- Column 4: Incoming Feature -->
             <div class="footer-column">
-                <h3>Incoming Feature</h3>
-                <p>🤖 <strong>AI Resume Builder:</strong> Generate tailored, recruiter-ready resumes directly from your profile dashboard in seconds.</p>
+                <h3>New Feature</h3>
+                <p>🤖 <strong><a href="/resume-builder">AI Resume Builder:</a></strong> Generate tailored, recruiter-ready resumes directly from your profile dashboard in minutes.</p>
             </div>
             {% endif %}
         </div>

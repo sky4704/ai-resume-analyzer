@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="builder-container">
+
+    <div class="builder-card">
+
+        <h1>
+            AI Resume Builder
+        </h1>
+
+        <p class="builder-subtitle">
+            Generate a professional ATS-friendly resume
+        </p>
+
+        <form method="POST" id="resumeForm">
+
+            <!-- BASIC INFO -->
+
+            <div class="form-group">
+
+                <label>Full Name (<span style="color: red;">*</span>required field)</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Address (<span style="color: red;">*</span>required field)</label>
+
+                <input
+                    type="text"
+                    name="address"
+                    required
+                >
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Email (<span style="color: red;">*</span>required field)</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Phone (<span style="color: red;">*</span>required field)</label>
+
+                    <input
+                        type="text"
+                        name="phone"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>LinkedIn</label>
+
+                    <input
+                        type="text"
+                        name="linkedin"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>GitHub</label>
+
+                    <input
+                        type="text"
+                        name="github"
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Target Role (<span style="color: red;">*</span>required field)</label>
+
+                <input
+                    type="text"
+                    name="target_role"
+                    placeholder="Backend Engineer"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Skills (<span style="color: red;">*</span>required field)</span></label>
+
+                <textarea
+                    name="skills"
+                    placeholder="Python, Flask, SQLAlchemy"
+                    required
+                ></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Professional Summary (<span style="color: red;">*</span>required field)</span></label>
+
+                <textarea
+                    name="summary"
+                    placeholder="Write short professional summary"
+                    required
+                ></textarea>
+
+            </div>
+
+            <!-- EXPERIENCE -->
+
+            <div class="dynamic-section">
+
+                <div class="section-header">
+
+                    <h2>Professional Experience</h2>
+
+                    <button
+                        type="button"
+                        onclick="addExperience()"
+                        class="add-btn"
+                    >
+                        + Add
+                    </button>
+
+                </div>
+
+                <div id="experience-container">
+
+                    <textarea
+                        name="experience"
+                        placeholder="Worked on REST APIs using Flask (July 2025 to Now)..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+            <!-- PROJECTS -->
+
+            <div class="dynamic-section">
+
+                <div class="section-header">
+
+                    <h2>Projects (<span style="color: red;">*</span>required field)</span></h2>
+
+                    <button
+                        type="button"
+                        onclick="addProject()"
+                        class="add-btn"
+                    >
+                        + Add
+                    </button>
+
+                </div>
+
+                <div id="project-container">
+
+                    <textarea
+                        name="projects"
+                        placeholder="Built AI Resume Analyzer using Flask..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+            <!-- Certifications -->
+            <div class="form-group">
+
+                <label>Certifications</label>
+
+                <textarea
+                    name="certifications"
+                    placeholder="Certificate in Python programming from Scaler, Certificate in Machine Learning from Coding Ninja's"
+                ></textarea>
+
+            </div>
+
+            <!-- EDUCATION -->
+
+            <div class="form-group">
+
+                <label>Education</label>
+
+                <textarea
+                    name="education"
+                    placeholder="BCA, XYZ University..."
+                ></textarea>
+
+            </div>
+
+            <div class="checkbox-group">
+
+                <input
+                    type="checkbox"
+                    id="includeDeclaration"
+                    name="include_declaration"
+                >
+
+                <label for="includeDeclaration">
+
+                    Include professional declaration
+
+                </label>
+
+            </div>
+
+            <button
+                type="submit"
+                class="generate-btn"
+                id="generateBtn"
+            >
+                Generate Resume
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+function addExperience() {
+
+    const container =
+        document.getElementById(
+            "experience-container"
+        );
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "dynamic-item";
+
+    wrapper.innerHTML = `
+        <textarea
+            name="experience"
+            placeholder="Describe your experience"
+        ></textarea>
+
+        <button
+            type="button"
+            class="remove-btn"
+            onclick="removeItem(this)"
+        >
+            Remove
+        </button>
+    `;
+
+    container.appendChild(wrapper);
+}
+
+
+function addProject() {
+
+    const container =
+        document.getElementById(
+            "project-container"
+        );
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "dynamic-item";
+
+    wrapper.innerHTML = `
+        <textarea
+            name="projects"
+            placeholder="Describe your project"
+        ></textarea>
+
+        <button
+            type="button"
+            class="remove-btn"
+            onclick="removeItem(this)"
+        >
+            Remove
+        </button>
+    `;
+
+    container.appendChild(wrapper);
+}
+
+
+const form =
+    document.getElementById(
+        "resumeForm"
+    );
+
+const button =
+    document.getElementById(
+        "generateBtn"
+    );
+
+form.addEventListener(
+    "submit",
+    function() {
+
+        button.disabled = true;
+
+        button.innerText =
+            "Generating Resume...";
+
+        setTimeout(() => {
+
+            button.disabled = false;
+
+            button.innerText =
+                "Generate Resume";
+
+        }, 13000);
+    }
+);
+
+</script>
+
+{% endblock %}

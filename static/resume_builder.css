@@ -1,0 +1,185 @@
+.builder-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    padding: 40px 20px;
+}
+
+.builder-card {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    background: #111827;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.builder-subtitle {
+
+    color: #94a3b8;
+
+    margin-bottom: 30px;
+}
+
+.form-group {
+
+    margin-bottom: 25px;
+}
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    border: 1px solid #334155;
+
+    background: #1e293b;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+.form-group textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.form-row {
+
+    display: flex;
+
+    gap: 20px;
+}
+
+.form-row .form-group {
+
+    flex: 1;
+}
+
+.dynamic-section {
+
+    margin-top: 40px;
+}
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.add-btn {
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 16px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.generate-btn {
+
+    width: 100%;
+
+    margin-top: 40px;
+
+    padding: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #3b82f6,
+        #6366f1
+    );
+
+    border: none;
+
+    color: white;
+
+    font-size: 16px;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+/* Loading overlay */
+
+
+
+
+.dynamic-item {
+
+    margin-bottom: 15px;
+}
+
+.remove-btn {
+
+    margin-top: 8px;
+
+    background: #dc2626;
+
+    color: white;
+
+    border: none;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+
+.checkbox-group {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.checkbox-group input {
+
+    width: 18px;
+
+    height: 18px;
+}

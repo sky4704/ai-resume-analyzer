@@ -10,9 +10,6 @@ client = genai.Client(
 )
 
 
-import json
-
-
 def resume_analyzer(resume_text, user_role):
 
     prompt = f"""
