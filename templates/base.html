@@ -3,24 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Resume Analyzer</title>
+    <title>AI Resume Metrics</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><rect x='3' y='3' width='18' height='18' rx='4' stroke='%23333333' stroke-width='1.1'/><path d='M8 10L6 12L8 14' stroke='%23007bff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/><path d='M16 10L18 12L16 14' stroke='%23007bff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/><line x1='10' y1='12' x2='14' y2='12' stroke='%2328a745' stroke-width='1.8' stroke-linecap='round'/></svg>">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='resume_builder.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <h2 class="nav-title">
-                    <a href="/" style="text-decoration: none;">AI Resume Analyzer</a>
-                </h2>
+                <a href="/" class="brand-link">
+                    <div class="logo-wrapper">
+                        <svg class="brand-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Outer Frame -->
+                            <rect class="frame" x="3" y="3" width="18" height="18" rx="4" stroke="#ffffff" stroke-width="1.1"/>
+                            <!-- Tech Brackets -->
+                            <path class="brackets" d="M8 10L6 12L8 14" stroke="#007bff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="brackets" d="M16 10L18 12L16 14" stroke="#007bff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <!-- Central Generation Prompt Line -->
+                            <line x1="10" y1="12" x2="14" y2="12" stroke="#28a745" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                        
+                        <span class="brand-text">
+                            CV<span class="text-highlight">Metrics</span> <span class="badge-ai">AI</span>
+                        </span>
+                    </div>
+                </a>
                 {% if session.get("user") %}
                 <div class="nav-links">
+                    <a href="/">Workspace</a>
                     <a href="/history">History</a>
-                    <a href="/dashboard">Dashboard</a>
                     <a href="/logout">Logout</a>
-                    <a href="/resume-builder">🤖</a>
                 </div>
                 {% endif %}
             </nav>
@@ -86,7 +101,7 @@
         
         <!-- Bottom Copyright Bar -->
         <div class="footer-bottom">
-            <p>&copy; 2026 AI Resume Analyzer. All rights reserved.</p>
+            <p>&copy; 2026 CV Metrics AI. All rights reserved.</p>
         </div>
     </footer>
 </body>

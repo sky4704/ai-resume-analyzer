@@ -65,6 +65,58 @@ nav {
     color: #38bdf8;
 }
 
+/* LOGO CSS */
+
+/* Base Brand Anchor Layout */
+.brand-link {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Base Text & SVG Styles */
+.brand-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: sans-serif;
+    transition: color 0.25s ease; 
+}
+
+.text-highlight {
+    color: #007bff;
+    transition: color 0.25s ease; /* Smoothly transitions color on hover */
+}
+
+.badge-ai {
+    font-size: 16px;
+    background: #60e9f1;
+    color: #007bff;
+    padding: 3px 4px;
+    border-radius: 4px;
+    vertical-align: middle;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.brand-link:hover .text-highlight {
+    color: #ffffff;
+}
+
+/* 3. Interchanges the AI badge colors (Green background becomes white, text becomes green) */
+.brand-link:hover .badge-ai {
+    background: #007bff;
+    color: #60e9f1;
+}
+
+.brand-link:hover .brand-text {
+    color: #007bff;
+}
+
 
 /* MAIN */
 
@@ -289,7 +341,7 @@ button:disabled {
 
     margin-bottom: 40px;
 
-    box-shadow: 13px 13px 7px #75757558;
+    box-shadow: -11px -11px 4px #75757558;
 
     border: 1px solid #6c6c6c;
 }
@@ -491,8 +543,159 @@ footer {
     .red {
         padding: 20px;
     }
+}
+
+/* ===================================
+   MOBILE RESPONSIVE
+=================================== */
+
+@media (max-width: 768px) {
+
+
+    /* ==========
+       CONTAINER
+    ========== */
+
+    .container {
+
+        width: 95%;
+
+        padding: 10px;
+    }
+
+    /* ==========
+       HEADINGS
+    ========== */
+
+    h1 {
+
+        font-size: 28px;
+    }
+
+    h2 {
+
+        font-size: 24px;
+    }
+
+    h3 {
+
+        font-size: 20px;
+    }
+
+    /* ==========
+       CARDS
+    ========== */
+
+    .card,
+    .workspace-card,
+    .auth-card {
+
+        padding: 20px;
+    }
+
+    /* ==========
+       FORMS
+    ========== */
+
+    input,
+    textarea,
+    select {
+
+        font-size: 16px;
+
+        padding: 12px;
+    }
 
     textarea {
-        min-height: 140px;
+
+        min-height: 120px;
+    }
+
+    /* ==========
+       BUTTONS
+    ========== */
+
+    button,
+    .workspace-btn,
+    .primary-link {
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+    /* ==========
+       WORKSPACE
+    ========== */
+
+    .workspace-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .workspace-header h1 {
+
+        font-size: 30px;
+    }
+
+    /* ==========
+       HISTORY PAGE
+    ========== */
+
+    .history-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    /* ==========
+       SCORE CIRCLE
+    ========== */
+
+    .score-circle {
+
+        width: 100px;
+
+        height: 100px;
+
+        font-size: 20px;
+    }
+
+    /* ==========
+       LISTS
+    ========== */
+
+    ul {
+
+        padding-left: 18px;
+    }
+
+    li {
+
+        margin-bottom: 8px;
+    }
+
+    /* ==========
+       RESUME BUILDER
+    ========== */
+
+    .builder-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .dynamic-item {
+
+        margin-bottom: 20px;
+    }
+
+    /* ==========
+       FOOTER
+    ========== */
+
+    footer {
+
+        text-align: center;
+
+        font-size: 14px;
     }
 }

@@ -31,12 +31,18 @@ def allowed_file(filename):
         filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #Home
-@app.route("/")
-def home():
-    if "user" in session:
-        return redirect("/dashboard")
 
-    return redirect("/login")
+@app.route("/")
+def home_page():
+
+    if "user" not in session:
+
+        return redirect("/login")
+
+    return render_template(
+        "home.html",
+        user=session["user"]
+    )
 
 def is_password_hashed(password_string):
     return bool(re.match(r'^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$', password_string))
@@ -108,7 +114,7 @@ def login():
 
                 if valid_password:
                     session["user"] = email
-                    return redirect("/dashboard")
+                    return redirect("/")
                 
                 flash("Invalid password!", "error")
             else:

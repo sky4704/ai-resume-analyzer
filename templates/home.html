@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="workspace-header">
+
+    <h2>
+        Welcome, {{ user.split("@")[0] }}
+    </h2>
+
+    <p>
+        Choose what you want to do
+    </p>
+
+</div>
+
+<div class="workspace-grid">
+
+    <div class="workspace-card">
+
+        <h2>
+            Build Resume
+        </h2>
+
+        <p>
+            Create a professional ATS-friendly
+            resume using AI assistance.
+        </p>
+
+        <a
+            href="/resume-builder"
+            class="workspace-btn"
+        >
+            Start Building
+        </a>
+
+    </div>
+
+    <div class="workspace-card">
+
+        <h2>
+            Analyze Resume
+        </h2>
+
+        <p>
+            Analyze your resume and get
+            skill gaps, roadmap and interview
+            preparation guidance.
+        </p>
+
+        <a
+            href="/dashboard"
+            class="workspace-btn"
+        >
+            Analyze Now
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
